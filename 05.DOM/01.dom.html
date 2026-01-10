@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM</title>
+</head>
+
+<body>
+    <div id="box1">这是一个ID选择器标签</div>
+    <div class="box2">这是一个类选择器标签</div>
+    <div>普通的div标签</div>
+
+    <button>DOM属性按键</button>
+
+    <script>
+        var element_id = document.getElementById('box1');
+        console.log(element_id);
+        var element_class = document.getElementsByClassName("box2");
+        console.log(element_class);
+        var element_tag = document.getElementsByTagName('div')[2];
+        console.log(element_tag);
+        element_id.innerHTML = '<a href="#">跳转链接</a>';
+        element_class.innerText = '<a href="#">跳转链接</a>'
+            //element_tag.innerHTML = '<a href="#">跳转链接</a>';
+
+        element_tag.style.color = 'red';
+        element_tag.style.fontSize = "20px";
+        // DOM 属性绑定事件
+        var button_element = document.getElementsByTagName("button")[0];
+        console.log(button_element);
+
+        button_element.onclick = function() {
+                alert('DOM属性按键触发');
+                console.log('-------------------------on click事件触发-------------------------');
+            }
+            /* 
+            button_element.addEventListener('click', function() {
+                alert('通过 addEventListener 触发按键');
+            });
+            */
+    </script>
+</body>
