@@ -17,7 +17,7 @@ function addRow() {
     //修改节点文本内容
     nameCol.innerHTML = '未命名';
     phoneCol.innerHTML = "无联系方式";
-    actionCol.innerHTML = '<button>编辑</button><button>删除</button>'
+    actionCol.innerHTML = '<button>编辑</button><button onclick="deleteRow(this)">删除</button>'
 }
 
 // 编辑数据函数
@@ -25,7 +25,10 @@ function editRow(button) {
     console.log(button);
 }
 
-// 删除数据函数
+//删除数据函数
 function deleteRow(button) {
-    console.log(button);
+    // console.log(button);
+    var row = button.parentNode.parentNode;
+    console.log(row);
+    row.parentNode.removeChild(row);
 }
