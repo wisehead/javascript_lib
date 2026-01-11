@@ -9,19 +9,30 @@
     <style>
         table {
             width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
         }
         
         th,
         td {
             border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #ddd;
+        }
+
+        button {
+            margin-left: 5px;
         }
     </style>
 </head>
 
 <body>
     <h1 style="text-align:center">表格的增删改查</h1>
-    <button>新增数据</button>
-    <table>
+    <button onclick="addRow()">新增数据</button>
+    <table id="table">
         <tr>
             <th>姓名</th>
             <th>联系方式</th>
@@ -31,11 +42,11 @@
             <td>罗大富</td>
             <td>12345678910</td>
             <td>
-                <button>编辑</button>
-                <button>删除</button>
+                <button>编辑</button><button>删除</button>
             </td>
         </tr>
     </table>
+    <script src="./table.js"></script>
 </body>
 
 </html>
