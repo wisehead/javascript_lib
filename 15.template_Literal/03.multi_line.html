@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>JavaScript 模板字面量</h2>
+
+    <p>模板字面量使用反引号 (``) 来定义一个字符串。</p>
+    <p>模板字符串还支持多行文本，而无需使用特殊的转义字符。</p>
+
+    <p id="demo"></p>
+
+    <p>Internet Explorer 不支持模板字面量。</p>
+
+    <script>
+        const multiLineText = `
+  This is
+  a multi-line
+  text.
+`;
+        document.getElementById("demo").innerHTML = multiLineText;
+    </script>
+
+</body>
+
+</html>
