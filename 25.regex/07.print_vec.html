@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <script>
+        var patt1 = new RegExp("e");
+        var vec = patt1.exec("The best things in life are free")
+        let res = "";
+        for (let i = 0; i < vec.length; i++) {
+            res = res + vec[i];
+            console.log(res);
+            document.write("--------------------------------");
+            document.write("<br>");
+            document.write(res);
+            document.write("<br>");
+            console.log("--------------------------------");
+        }
+        document.write("-----------after---------------------");
+        document.write("<br>");
+        document.write(res);
+        document.write("<br>");
+    </script>
+
+</body>
+
+</html>
