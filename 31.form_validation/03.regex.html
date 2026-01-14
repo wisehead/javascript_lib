@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <meta charset="utf-8">
+    <title>表单验证示例</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        input.invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form name="myForm" action="demo-form.php" method="post" novalidate>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="email-error" class="error"></div>
+        </div>
+        <input type="submit" value="提交">
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.forms['myForm'];
+            const emailInput = form['email'];
+            const emailError = document.getElementById('email-error');
+
+            // 实时验证
+            emailInput.addEventListener('input', function() {
+                validateEmail();
+            });
+
+            // 表单提交验证
+            form.addEventListener('submit', function(event) {
+                if (!validateEmail()) {
+                    event.preventDefault();
+                } else {
+                    alert("邮箱有效");
+                    event.preventDefault(); // 测试，阻止表单提交，实际生产环境要去掉
+                }
+            });
+
+            function validateEmail() {
+                const email = emailInput.value.trim();
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (email === '') {
+                    showError(emailInput, emailError, '邮箱地址不能为空');
+                    return false;
+                }
+
+                if (!regex.test(email)) {
+                    showError(emailInput, emailError, '请输入有效的邮箱地址');
+                    return false;
+                }
+
+                showSuccess(emailInput, emailError);
+                return true;
+            }
+
+            function showError(input, errorElement, message) {
+                input.classList.add('invalid');
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+            }
+
+            function showSuccess(input, errorElement) {
+                input.classList.remove('invalid');
+                errorElement.textContent = '';
+                errorElement.classList.remove('show');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
