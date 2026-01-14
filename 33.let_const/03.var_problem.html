@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>使用 var 声明变量</h2>
+
+    <p id="demo"></p>
+
+    <script>
+        var x = 10;
+        // 这里输出 x 为 10
+        {
+            var x = 2;
+            // 这里输出 x 为 2
+        }
+        // 这里输出 x 为 2
+        document.getElementById("demo").innerHTML = x;
+    </script>
+
+</body>
+
+</html>
