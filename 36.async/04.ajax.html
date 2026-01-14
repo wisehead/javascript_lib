@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <p><strong>以下内容是通过异步请求获取的：</strong></p>
+    <p id="demo"></p>
+    <script>
+        var xhr = new XMLHttpRequest();
+
+        xhr.onload = function() {
+            // 输出接收到的文字数据
+            document.getElementById("demo").innerHTML = xhr.responseText;
+        }
+
+        xhr.onerror = function() {
+            document.getElementById("demo").innerHTML = "请求出错";
+        }
+
+        // 发送异步 GET 请求
+        xhr.open("GET", "/try/ajax/ajax_info.txt", true);
+        xhr.send();
+    </script>
+
+</body>
+
+</html>
