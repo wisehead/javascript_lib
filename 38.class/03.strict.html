@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>JavaScript 类必须遵循严格模式 "strict mode" 的规则 </h2>
+
+    <p>JavaScript 类不能使用没有声明的变量。</p>
+
+    <p id="demo"></p>
+
+    <script>
+        class Runoob {
+            constructor(name, year) {
+                this.name = name;
+                this.year = year;
+            }
+            age() {
+                // date = new Date();  // 错误
+                let date = new Date(); // 正确
+                return date.getFullYear() - this.year;
+            }
+        }
+
+
+        myCar = new Runoob("菜鸟教程", 2020);
+        document.getElementById("demo").innerHTML =
+            "菜鸟教程 " + myCar.age() + " 岁了。";
+    </script>
+
+</body>
+
+</html>

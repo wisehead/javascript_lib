@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>JavaScript 类的方法</h2>
+
+    <p>类中如何定义方法</p>
+
+    <p id="demo"></p>
+
+    <script>
+        class Runoob {
+            constructor(name, year) {
+                this.name = name;
+                this.year = year;
+            }
+            age() {
+                let date = new Date();
+                return date.getFullYear() - this.year;
+            }
+        }
+
+        let runoob = new Runoob("菜鸟教程", 2018);
+        document.getElementById("demo").innerHTML =
+            "菜鸟教程 " + runoob.age() + " 岁了。";
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>JavaScript 类继承</h2>
+
+    <p>JavaScript 类继承使用 extends 关键字。</p>
+    <p>"super" 方法用于调用父类的构造函数。</p>
+
+    <p id="demo"></p>
+
+    <script>
+        class Site {
+            constructor(name) {
+                this.sitename = name;
+            }
+            present() {
+                return '我喜欢' + this.sitename;
+            }
+        }
+
+        class Runoob extends Site {
+            constructor(name, age) {
+                super(name);
+                this.age = age;
+            }
+            show() {
+                return this.present() + ', 它创建了 ' + this.age + ' 年。';
+            }
+        }
+
+        let noob = new Runoob("菜鸟教程", 5);
+        document.getElementById("demo").innerHTML = noob.show();
+    </script>
+
+</body>
+
+</html>
