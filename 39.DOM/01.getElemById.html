@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+</head>
+
+<body>
+
+    <h2>JavaScript 类的静态方法</h2>
+
+    <p>静态方法不能在对象上调用，只能在类中调用。</p>
+
+    <p id="demo"></p>
+
+    <script>
+        class Runoob {
+            constructor(name) {
+                this.name = name;
+            }
+            static hello() {
+                return "Hello!!";
+            }
+        }
+
+        let noob = new Runoob("菜鸟教程");
+
+        // 可以在类中调用 'hello()' 方法
+        document.getElementById("demo").innerHTML = Runoob.hello();
+
+        // 不能通过实例化后的对象调用静态方法
+        // document.getElementById("demo").innerHTML = noob.hello();
+        // 以上代码会报错
+    </script>
+
+</body>
+
+</html>
