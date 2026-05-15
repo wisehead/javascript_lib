@@ -1,4 +1,4 @@
-function factorial2(number) {
+function factorial2(number: number): number {
     if (number <= 0) {         // 停止执行
         return 1; 
     } else {     
