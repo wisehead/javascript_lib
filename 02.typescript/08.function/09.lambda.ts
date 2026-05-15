@@ -8,7 +8,7 @@ var foo2  = (x:number)=> {
 } 
 foo(100)
 
-var func = (x)=> { 
+var func = (x: number | string)=> { 
     if(typeof x=="number") { 
         console.log(x+" 是一个数字") 
     } else if(typeof x=="string") { 
@@ -19,13 +19,13 @@ func(12)
 func("Tom")
 
 
-var display = x => { 
+var display = (x: number | string) => { 
     console.log("输出为 "+x) 
 } 
 display(12)
 
 
-var disp =()=> { 
+var disp2 =()=> { 
     console.log("Function invoked"); 
 } 
-disp();
+disp2();
