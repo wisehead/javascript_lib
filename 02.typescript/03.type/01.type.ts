@@ -14,3 +14,150 @@ let temperature: number = 36.5;
 // 表示逻辑值 true 或 false，用于条件判断。
 
 let isCompleted: boolean = false;
+
+//4、array 数组
+// 可以表示一组相同类型的元素。可以使用 type[] 或 Array<type> 两种方式表示。
+
+let numbers: number[] = [1, 2, 3];
+let names: Array<string> = ["Alice", "Bob"];
+
+//5、tuple 元组
+// 表示已知数量和类型的数组。每个元素可以是不同的类型，适合表示固定结构的数据。
+
+let person: [string, number] = ["Alice", 25];
+
+//6、enum 枚举
+// 用来定义一组命名常量。默认情况下枚举的值从 0 开始递增。
+
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
+let favoriteColor: Color = Color.Green;
+
+//7、any 类型
+// 以表示任何类型。适合不确定数据类型的情况，但使用时需谨慎，因为 any 会绕过类型检查。
+
+let randomValue: any = 42;
+randomValue = "hello";
+// 任意值是 TypeScript 针对编程时类型不明确的变量使用的一种数据类型，它常用于以下三种情况。
+
+// (1)变量的值会动态改变时，比如来自用户的输入，任意值类型可以让这些变量跳过编译阶段的类型检查，示例代码如下：
+
+let x: any = 1;    // 数字类型
+x = 'I am who I am';    // 字符串类型
+x = false;    // 布尔类型
+// (2)改写现有代码时，任意值允许在编译时可选择地包含或移除类型检查，示例代码如下：
+
+// (3)改写现有代码时，任意值允许在编译时可选择地包含或移除类型检查，示例代码如下：
+let y: any = 4;
+y.ifItExists();    // 正确，ifItExists方法在运行时可能存在，但这里并不会检查
+y.toFixed();    // 正确
+// 定义存储各种类型数据的数组时，示例代码如下：
+
+let arrayList: any[] = [1, false, 'fine'];
+arrayList[1] = 100;
+
+//8、void 空类型
+//用于没有返回值的函数。声明变量时，类型 void 意味着只能赋值 null 或 undefined。
+
+function logMessage(message: string): void {
+  console.log(message);
+}
+
+//9、null 和 undefined
+// null 和 undefined分别表示"空值"和"未定义"。在默认情况下，它们是所有类型的子类型，但可以通过设置 strictNullChecks 严格检查。
+
+let empty: null = null;
+let notAssigned: undefined = undefined;
+// null
+
+// 在 JavaScript 中 null 表示 "什么都没有"。
+
+// null是一个只有一个值的特殊类型。表示一个空对象引用。
+
+// 用 typeof 检测 null 返回是 object。
+
+// undefined
+
+// 在 JavaScript 中, undefined 是一个没有设置值的变量。
+
+// typeof 一个没有值的变量会返回 undefined。
+
+// Null 和 Undefined 是其他任何类型（包括 void）的子类型，可以赋值给其它类型，如数字类型，此时，赋值后的类型会变成 null 或 undefined。而在TypeScript中启用严格的空校验（--strictNullChecks）特性，就可以使得null 和 undefined 只能被赋值给 void 或本身对应的类型，示例代码如下：
+
+// 启用 --strictNullChecks
+let x1: number;
+x1 = 1; // 编译正确
+// x1 = undefined;    // 编译错误，因此注释掉这一行
+// x1 = null;    // 编译错误，因此注释掉这一行
+// 上面的例子中变量 x 只能是数字类型。如果一个类型可能出现 null 或 undefined， 可以用 | 来支持多种类型，示例代码如下：
+
+// 启用 --strictNullChecks
+let x2: number | null | undefined;
+x2 = 1; // 编译正确
+x2 = undefined;    // 编译正确
+x2 = null;    // 编译正确
+
+//10、never 类型
+// 表示不会有返回值，通常用于抛出错误或进入无限循环的函数，表示该函数永远不会正常结束。
+
+function throwError(message: string): never {
+  throw new Error(message);
+}
+// never 是其它类型（包括 null 和 undefined）的子类型，代表从不会出现的值。这意味着声明为 never 类型的变量只能被 never 类型所赋值，在函数中它通常表现为抛出异常或无法执行到终止点（例如无限循环），示例代码如下：
+
+let x_never: never;
+let y: number;
+
+// 编译错误，数字类型不能转为 never 类型
+// x_never = 123;
+
+// 运行正确，never 类型可以赋值给 never类型
+x_never = (()=>{ throw new Error('exception')})();
+
+// 运行正确，never 类型可以赋值给 数字类型
+y = (()=>{ throw new Error('exception')})();
+
+// 返回值为 never 的函数可以是抛出异常的情况
+function error(message: string): never {
+    throw new Error(message);
+}
+
+// 返回值为 never 的函数可以是无法被执行到的终止点的情况
+function loop(): never {
+    while (true) {}
+}
+// 11、object 对象类型
+// 表示非原始类型的值，适用于复杂的对象结构。
+
+let personObj: object = { name: "Alice", age: 30 };
+
+// 12、联合类型 (Union)
+// 表示一个变量可以是多种类型之一。通过 | 符号实现。
+
+let id: string | number;
+id = "123";
+id = 456;
+
+// 13、unknown 不确定的类型
+// 与 any 类似，但更严格。必须经过类型检查后才能赋值给其他类型变量。
+
+let value: unknown = "Hello";
+if (typeof value === "string") {
+  let message1: string = value as string; // 使用类型断言确保类型兼容
+  console.log(message1); // 使用message1避免"从未读取其值"的警告
+}
+// 14、类型断言 (Type Assertions)
+// 类型断言可以让开发者明确告诉编译器变量的类型，常用于无法推断的情况。可以使用 as 或尖括号语法。
+
+let someValue: any = "this is a string";
+let strLength: number = (someValue as string).length;
+
+// 15、字面量类型
+// 字面量类型可以让变量只能拥有特定的值，用于结合联合类型定义变量的特定状态。
+
+let direction: "up" | "down" | "left" | "right";
+direction = "up";
+// 通过这些类型，TypeScript 提供了更强的类型安全性和代码检查能力，使开发者能够更清晰、准确地表达数据和意图，减少运行时错误。
