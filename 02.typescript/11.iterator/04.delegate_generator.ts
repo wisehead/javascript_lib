@@ -17,7 +17,6 @@ function* combined() {
 }
 
 // 遍历组合生成器
-for (var _i = 0, combined_1 = combined(); _i < combined_1.length; _i++) {
-    var num = combined_1[_i];
+for (const num of combined()) {
     console.log("值: " + num);
 }
