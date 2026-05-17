@@ -1,8 +1,8 @@
-let nameSiteMapping = new Map();
+let nameSiteMapping2 = new Map();
  
-nameSiteMapping.set("Google", 1);
-nameSiteMapping.set("Runoob", 2);
-nameSiteMapping.set("Taobao", 3);
+nameSiteMapping2.set("Google", 1);
+nameSiteMapping2.set("Runoob", 2);
+nameSiteMapping2.set("Taobao", 3);
  
 // 迭代 Map 中的 key
 for (let key of nameSiteMapping.keys()) {
