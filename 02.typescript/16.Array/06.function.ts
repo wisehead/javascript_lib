@@ -13,6 +13,6 @@ function disp2():string[] {
 } 
  
 var sites:string[] = disp2() 
-for(var i in sites) { 
+for(var i = 0; i < sites.length; i++) { 
         console.log(sites[i]) 
 }
