@@ -1,0 +1,14 @@
+{
+  // 仅让 TS 处理本目录下的 .ts / .d.ts，排除模拟的第三方 JS 库
+  // 避免 CalcThirdPartyJsLib.js 中的 `var Runoob;` 与 Calc.d.ts 的
+  // `declare module Runoob {...}` 在全局作用域产生 ts(2300) 重复标识符
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "strict": false,
+    "allowJs": false,
+    "skipLibCheck": true
+  },
+  "include": ["**/*.ts", "**/*.d.ts"],
+  "exclude": ["**/*.js"]
+}
