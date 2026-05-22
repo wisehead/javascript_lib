@@ -1,0 +1,1 @@
+tsc --outFile app.js --ignoreDeprecations "6.0" InvoiceTest.ts
