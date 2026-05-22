@@ -32,3 +32,5 @@ makeSpeak(new Dog());
 
 // 抽象类类型数组：可以存储不同子类实例
 var animals: Animal[] = [new Cat(), new Dog()];
+
+export {}
