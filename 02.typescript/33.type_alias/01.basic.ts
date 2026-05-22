@@ -16,3 +16,5 @@ var point: Point = { x: 10, y: 20 };
 console.log("用户ID: " + userId);
 console.log("产品ID: " + productId);
 console.log("坐标: " + JSON.stringify(point));
+
+export { };
