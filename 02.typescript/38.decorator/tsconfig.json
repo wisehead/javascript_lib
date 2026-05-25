@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        // 启用装饰器语法
+        "experimentalDecorators": true,
+
+        // 启用装饰器元数据（用于依赖注入框架）
+        "emitDecoratorMetadata": true
+    }
+}
