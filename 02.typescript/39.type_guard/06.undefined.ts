@@ -1,8 +1,11 @@
 // 可能为 undefined 的字符串
 function greet(name?: string): string {
-    // 使用短路运算符：如果 name 为 undefined 或空字符串，使用默认值
-    // 在 && 后的代码块中，TypeScript 知道 name 一定有值
-    return name && "Hello, " + name;
+    // 如果 name 存在且非空，则返回问候语；否则返回默认问候语
+    if (name) {
+        return "Hello, " + name;
+    } else {
+        return "Hello, Guest"; // 默认问候语
+    }
 }
 
 // 测试
