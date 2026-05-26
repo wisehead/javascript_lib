@@ -20,19 +20,11 @@ type Result<T, E> =
     | { ok: false; error: E };
 
 // 使用通用错误处理
-// 模拟获取数据
+//
 async function handleDataFetch() {
     var result45b  = await withErrorHandling(async function() {
-        // 在 Node.js 环境中模拟 API 请求
-        // 实际项目中可能需要引入 node-fetch 或其他库来支持 fetch
-        // 这里我们模拟一个成功的响应
-        return { message: "模拟的数据", timestamp: Date.now() };
-        
-        // 如果要在 Node.js 中真正使用 fetch，需要以下代码：
-        /*
-        var response = await fetch("https://jsonplaceholder.typicode.com/posts/1"); // 使用真实的 API 端点
+        var response = await fetch("/api/data");
         return response.json();
-        */
     });
 
     // 根据结果处理
