@@ -40,3 +40,5 @@ var FullUser = Serializable(Timestamped(User));
 var user = new FullUser("Alice");
 console.log("时间戳: " + user.timestamp);
 console.log("序列化: " + user.serialize());
+
+export {};
