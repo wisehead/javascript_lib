@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { TaskList } from "./components/TaskList";
 import { useTasks } from "./hooks/useTasks";
 import { CreateTaskInput, TaskPriority } from "./types/task";
-import "./App.css";
 
 // 任务表单组件 Props
 interface TaskFormProps {
