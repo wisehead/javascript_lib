@@ -1,0 +1,20 @@
+{
+  "name": "javascript_lib",
+  "version": "1.0.0",
+  "description": "git branch -m main master git push -u origin master git push origin --delete main",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wisehead/javascript_lib.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wisehead/javascript_lib/issues"
+  },
+  "homepage": "https://github.com/wisehead/javascript_lib#readme"
+}

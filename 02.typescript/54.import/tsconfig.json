@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        // 基准路径：所有路径别名的根目录
+        "baseUrl": ".",
+        
+        // 忽略弃用警告
+        "ignoreDeprecations": "6.0",
+
+        // 启用 JSX 支持
+        "jsx": "react",
+        
+        // 路径映射配置
+        "paths": {
+            // @/ 开头的别名，指向 src 目录
+            "@/*": ["./src/*"],
+
+            // @components 开头的别名
+            "@components/*": ["./src/components/*"],
+
+            // @utils 开头的别名
+            "@utils/*": ["./src/utils/*"],
+
+            // @services 开头的别名
+            "@services/*": ["./src/services/*"],
+
+            // @assets 开头的别名
+            "@assets/*": ["./src/assets/*"],
+
+            // @types 开头的别名
+            "@types/*": ["./src/types/*"]
+        },
+        
+        // 包含类型声明
+        "typeRoots": ["./node_modules/@types", "./src/types"],
+        
+        // 输出目录
+        "outDir": "./dist",
+        
+        // 指定要包含的文件
+        "rootDir": "./src"
+    }
+}
