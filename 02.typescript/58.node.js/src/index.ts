@@ -6,6 +6,11 @@ const app = express();
 // 解析 JSON 请求体
 app.use(express.json());
 
+// 根路径路由
+app.get("/", (req: Request, res: Response) => {
+    res.json({ message: "欢迎使用用户服务 API", endpoints: ["/api/users", "/api/users/:id"] });
+});
+
 // 获取所有用户
 app.get("/api/users", (req: Request, res: Response) => {
     const result = userService.getAllUsers();

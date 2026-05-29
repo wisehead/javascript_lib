@@ -9,6 +9,10 @@ const userService_1 = __importDefault(require("./services/userService"));
 const app = (0, express_1.default)();
 // 解析 JSON 请求体
 app.use(express_1.default.json());
+// 根路径路由
+app.get("/", (req, res) => {
+    res.json({ message: "欢迎使用用户服务 API", endpoints: ["/api/users", "/api/users/:id"] });
+});
 // 获取所有用户
 app.get("/api/users", (req, res) => {
     const result = userService_1.default.getAllUsers();
