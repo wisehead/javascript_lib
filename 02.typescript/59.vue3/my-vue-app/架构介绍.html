@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>my-vue-app · 代码结构与 Vue 架构介绍</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --vue-green: #42b883;
+      --vue-dark: #35495e;
+      --vite-purple: #a855f7;
+      --vite-blue: #41d1ff;
+      --ts-blue: #3178c6;
+      --text: #2c3e50;
+      --text-soft: #5b6b7b;
+      --bg: #f6f8fa;
+      --card-bg: #ffffff;
+      --border: #e3e8ee;
+      --code-bg: #f4f3ec;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 16px/1.7 system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* Hero */
+    header.hero {
+      background: linear-gradient(135deg, var(--vue-dark) 0%, #2b3a4a 100%);
+      color: #fff;
+      padding: 56px 24px 48px;
+      text-align: center;
+      border-bottom: 4px solid var(--vue-green);
+    }
+    header.hero h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: .5px; }
+    header.hero p { margin: 0; color: #b9c6d2; font-size: 16px; }
+    .badges { margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Sections */
+    section { margin-top: 40px; }
+    h2 {
+      font-size: 23px; margin: 0 0 4px; color: var(--vue-dark);
+      display: flex; align-items: center; gap: 10px;
+    }
+    h2 .num {
+      flex: none; width: 30px; height: 30px; border-radius: 8px;
+      background: var(--vue-green); color: #fff; font-size: 15px;
+      display: grid; place-items: center; font-weight: 700;
+    }
+    h2 .en { font-size: 13px; color: var(--text-soft); font-weight: 500; }
+    .lead { color: var(--text-soft); margin: 6px 0 18px; }
+    h3 { font-size: 17px; color: var(--vue-dark); margin: 22px 0 8px; }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px 24px; box-shadow: var(--shadow);
+    }
+    .card + .card { margin-top: 16px; }
+
+    /* Mermaid container */
+    .diagram {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px; box-shadow: var(--shadow);
+      overflow-x: auto; text-align: center;
+    }
+    .diagram .mermaid { display: inline-block; }
+
+    /* Code & inline */
+    code {
+      font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+      background: var(--code-bg); padding: 2px 6px; border-radius: 4px;
+      font-size: 13.5px; color: #8a4b00;
+    }
+    pre {
+      background: #2b2b2b; color: #e6e6e6; padding: 16px 18px;
+      border-radius: 10px; overflow-x: auto; font-size: 13.5px; line-height: 1.6;
+      font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+    }
+    pre code { background: none; color: inherit; padding: 0; }
+    .tok-key { color: #cc7832; }
+    .tok-str { color: #6a8759; }
+    .tok-com { color: #808080; font-style: italic; }
+    .tok-fn  { color: #ffc66d; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f0f4f8; color: var(--vue-dark); font-weight: 600; }
+    td code { white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+
+    /* file tree */
+    .tree {
+      font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+      font-size: 13.5px; line-height: 1.9; color: var(--text);
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 24px; box-shadow: var(--shadow);
+      overflow-x: auto;
+    }
+    .tree .dir { color: var(--ts-blue); font-weight: 600; }
+    .tree .file { color: var(--text); }
+    .tree .note { color: var(--text-soft); }
+    .tree .hl { color: var(--vue-green); font-weight: 600; }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+
+    .pill { display:inline-block; padding:2px 9px; border-radius:6px; font-size:12px; font-weight:600; }
+    .pill.green { background: rgba(66,184,131,.12); color:#2c7a55; }
+    .pill.blue  { background: rgba(49,120,198,.12); color:#2a5e9e; }
+    .pill.purple{ background: rgba(168,85,247,.12); color:#7c3aed; }
+
+    footer { margin-top: 56px; text-align: center; color: var(--text-soft); font-size: 13px; }
+
+    .callout {
+      border-left: 4px solid var(--vue-green); background: rgba(66,184,131,.06);
+      padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0; font-size: 14.5px;
+    }
+    .callout.purple { border-left-color: var(--vite-purple); background: rgba(168,85,247,.06); }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>my-vue-app</h1>
+    <p>Vue 3 + TypeScript + Vite 项目 · 代码结构与架构图解</p>
+    <div class="badges">
+      <span class="badge"><span class="dot" style="background:#42b883"></span>Vue 3.5</span>
+      <span class="badge"><span class="dot" style="background:#3178c6"></span>TypeScript 6</span>
+      <span class="badge"><span class="dot" style="background:#a855f7"></span>Vite 8</span>
+      <span class="badge"><span class="dot" style="background:#41d1ff"></span>SFC &lt;script setup&gt;</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- 1. 概览 -->
+    <section>
+      <h2><span class="num">1</span> 项目概览 <span class="en">Overview</span></h2>
+      <p class="lead">这是由 <code>npm create vue</code> 脚手架生成的标准模板：一个最小可运行的 Vue 3 单页应用（SPA），采用单文件组件（SFC）+ <code>&lt;script setup&gt;</code> 语法，TypeScript 做类型检查，Vite 做开发服务器与打包。</p>
+      <div class="card">
+        <table>
+          <tr><th>维度</th><th>选型</th><th>说明</th></tr>
+          <tr><td>UI 框架</td><td><span class="pill green">Vue 3.5</span></td><td>Composition API + 响应式系统</td></tr>
+          <tr><td>语言</td><td><span class="pill blue">TypeScript 6</span></td><td><code>vue-tsc</code> 对 <code>.vue</code> 做类型检查</td></tr>
+          <tr><td>构建工具</td><td><span class="pill purple">Vite 8</span></td><td>开发态 ESM + HMR，生产态 Rollup 打包</td></tr>
+          <tr><td>组件风格</td><td><code>&lt;script setup&gt;</code> SFC</td><td>模板/逻辑/样式三段合一</td></tr>
+          <tr><td>入口</td><td><code>index.html</code> → <code>main.ts</code></td><td>挂载到 <code>#app</code></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2. 目录结构 -->
+    <section>
+      <h2><span class="num">2</span> 目录结构 <span class="en">File Structure</span></h2>
+      <p class="lead">绿色标注的是真正承载应用逻辑的文件，其余多为配置。</p>
+      <div class="tree">
+my-vue-app/
+├── <span class="file">index.html</span>            <span class="note"># 唯一 HTML 入口，挂载点 &lt;div id="app"&gt;</span>
+├── <span class="file">package.json</span>          <span class="note"># 依赖与脚本：dev / build / preview</span>
+├── <span class="file">vite.config.ts</span>        <span class="note"># Vite 配置，注册 @vitejs/plugin-vue</span>
+├── <span class="file">tsconfig.json</span>         <span class="note"># TS 根配置（references 引用下面两个）</span>
+├── <span class="file">tsconfig.app.json</span>     <span class="note"># 应用代码的 TS 配置（src/**）</span>
+├── <span class="file">tsconfig.node.json</span>    <span class="note"># 构建脚本(vite.config.ts)的 TS 配置</span>
+├── <span class="dir">public/</span>               <span class="note"># 原样拷贝的静态资源（不经打包）</span>
+│   ├── favicon.svg
+│   └── icons.svg            <span class="note"># 通过 &lt;use href="/icons.svg#..."&gt; 引用</span>
+└── <span class="dir">src/</span>                  <span class="note"># 源码目录</span>
+    ├── <span class="hl">main.ts</span>            <span class="note"># JS 入口：createApp(App).mount('#app')</span>
+    ├── <span class="hl">App.vue</span>            <span class="note"># 根组件</span>
+    ├── <span class="dir">components/</span>
+    │   └── <span class="hl">HelloWorld.vue</span> <span class="note"># 示例子组件（计数器 + 链接卡片）</span>
+    ├── <span class="dir">assets/</span>           <span class="note"># 经打包的资源（import 引用，带 hash）</span>
+    │   ├── hero.png
+    │   ├── vue.svg
+    │   └── vite.svg
+    ├── <span class="file">style.css</span>          <span class="note"># 全局样式（main.ts 中 import）</span>
+    └── <span class="file">shims-vue.d.ts</span>     <span class="note"># 为 *.svg/*.png 等声明模块类型</span>
+      </div>
+      <div class="callout purple">
+        <strong>public/ 与 assets/ 的区别：</strong>
+        <code>public/</code> 里的文件以绝对路径 <code>/icons.svg</code> 直接引用，构建时原样拷贝；
+        <code>src/assets/</code> 里的文件通过 <code>import</code> 引入，会被 Vite 处理、加内容 hash 并优化。
+      </div>
+    </section>
+
+    <!-- 3. 模块依赖图 -->
+    <section>
+      <h2><span class="num">3</span> 模块依赖关系 <span class="en">Module Dependency Graph</span></h2>
+      <p class="lead">从浏览器加载 <code>index.html</code> 开始，到组件渲染，整条 import 链路如下。</p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph TD
+    HTML["index.html<br/><small>&lt;div id='app'&gt;</small>"]:::html
+    MAIN["src/main.ts<br/><small>应用入口</small>"]:::entry
+    STYLE["src/style.css<br/><small>全局样式</small>"]:::css
+    APP["src/App.vue<br/><small>根组件</small>"]:::vue
+    HELLO["src/components/HelloWorld.vue<br/><small>子组件</small>"]:::vue
+    VUE(["vue 运行时<br/><small>createApp / ref</small>"]):::lib
+    ASSETS["assets/*.svg, hero.png<br/><small>图片资源</small>"]:::asset
+
+    HTML -->|script type=module| MAIN
+    MAIN -->|import| STYLE
+    MAIN -->|import App| APP
+    MAIN -->|import createApp| VUE
+    APP -->|import| HELLO
+    HELLO -->|import ref| VUE
+    HELLO -->|import 图片| ASSETS
+
+    classDef html fill:#e34c26,color:#fff,stroke:#b33,stroke-width:1px;
+    classDef entry fill:#3178c6,color:#fff,stroke:#245a99,stroke-width:1px;
+    classDef vue fill:#42b883,color:#fff,stroke:#2c7a55,stroke-width:1px;
+    classDef lib fill:#35495e,color:#fff,stroke:#22303c,stroke-width:1px;
+    classDef css fill:#a855f7,color:#fff,stroke:#7c3aed,stroke-width:1px;
+    classDef asset fill:#f0a020,color:#fff,stroke:#c47f10,stroke-width:1px;
+        </pre>
+      </div>
+    </section>
+
+    <!-- 4. 启动与挂载流程 -->
+    <section>
+      <h2><span class="num">4</span> 启动与挂载流程 <span class="en">Bootstrap & Mount Flow</span></h2>
+      <p class="lead">浏览器从加载脚本到首屏渲染的时序。</p>
+      <div class="diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant B as 浏览器
+    participant H as index.html
+    participant M as main.ts
+    participant V as Vue 运行时
+    participant A as App.vue
+    participant C as HelloWorld.vue
+
+    B->>H: 1. 加载 HTML，发现 #app 占位节点
+    H->>M: 2. &lt;script type="module"&gt; 加载 main.ts
+    M->>M: 3. import './style.css' 注入全局样式
+    M->>V: 4. createApp(App) 创建应用实例
+    M->>V: 5. .mount('#app')
+    V->>A: 6. 渲染根组件 App
+    A->>C: 7. 渲染 &lt;HelloWorld /&gt;
+    C-->>V: 8. setup() 执行，建立 count 响应式
+    V-->>B: 9. 生成真实 DOM，首屏可见
+        </pre>
+      </div>
+      <div class="card">
+        <h3>入口代码 <code>src/main.ts</code></h3>
+        <pre><code><span class="tok-key">import</span> { createApp } <span class="tok-key">from</span> <span class="tok-str">'vue'</span>
+<span class="tok-key">import</span> <span class="tok-str">'./style.css'</span>            <span class="tok-com">// 全局样式副作用导入</span>
+<span class="tok-key">import</span> App <span class="tok-key">from</span> <span class="tok-str">'./App.vue'</span>     <span class="tok-com">// 根组件</span>
+
+<span class="tok-fn">createApp</span>(App).<span class="tok-fn">mount</span>(<span class="tok-str">'#app'</span>)  <span class="tok-com">// 挂载到 index.html 的 #app</span></code></pre>
+      </div>
+    </section>
+
+    <!-- 5. 组件树 -->
+    <section>
+      <h2><span class="num">5</span> 组件树 <span class="en">Component Tree</span></h2>
+      <p class="lead">当前应用很简单，只有两层组件。<code>HelloWorld</code> 内部还划分了若干模板区域。</p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph TD
+    APP["App.vue<br/><small>根组件 · 只负责渲染 HelloWorld</small>"]:::root
+    HELLO["HelloWorld.vue<br/><small>页面主体</small>"]:::comp
+    S1["#center<br/><small>Logo 三连图 + 标题 + 计数按钮</small>"]:::slot
+    S2["#next-steps<br/><small>Documentation / Social 两栏卡片</small>"]:::slot
+    STATE(["count = ref(0)<br/><small>响应式状态</small>"]):::state
+
+    APP --> HELLO
+    HELLO --> S1
+    HELLO --> S2
+    STATE -.绑定.-> S1
+
+    classDef root fill:#35495e,color:#fff,stroke:#22303c;
+    classDef comp fill:#42b883,color:#fff,stroke:#2c7a55;
+    classDef slot fill:#eef2f6,color:#35495e,stroke:#cdd7e1;
+    classDef state fill:#a855f7,color:#fff,stroke:#7c3aed;
+        </pre>
+      </div>
+    </section>
+
+    <!-- 6. SFC 解剖 -->
+    <section>
+      <h2><span class="num">6</span> 单文件组件解剖 <span class="en">SFC Anatomy</span></h2>
+      <p class="lead">每个 <code>.vue</code> 文件由三个块组成。下图是一个 SFC 经编译后落到运行时的过程。</p>
+
+      <!-- SVG: SFC three blocks -->
+      <div class="card" style="text-align:center;">
+        <svg viewBox="0 0 720 280" width="100%" style="max-width:680px" role="img" aria-label="SFC 三段结构图">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f4f8fb"/>
+            </linearGradient>
+          </defs>
+          <!-- file outline -->
+          <rect x="20" y="20" width="300" height="240" rx="12" fill="url(#g1)" stroke="#cdd7e1" stroke-width="2"/>
+          <text x="170" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#35495e" font-family="monospace">HelloWorld.vue</text>
+
+          <!-- script block -->
+          <rect x="38" y="60" width="264" height="56" rx="8" fill="#3178c6"/>
+          <text x="52" y="84" font-size="13" fill="#fff" font-family="monospace">&lt;script setup lang="ts"&gt;</text>
+          <text x="52" y="103" font-size="12" fill="#cfe0f5" font-family="monospace">const count = ref(0)</text>
+
+          <!-- template block -->
+          <rect x="38" y="124" width="264" height="56" rx="8" fill="#42b883"/>
+          <text x="52" y="148" font-size="13" fill="#fff" font-family="monospace">&lt;template&gt;</text>
+          <text x="52" y="167" font-size="12" fill="#d8f3e6" font-family="monospace">{{ count }} ... @click</text>
+
+          <!-- style block (global, in style.css here) -->
+          <rect x="38" y="188" width="264" height="52" rx="8" fill="#a855f7"/>
+          <text x="52" y="212" font-size="13" fill="#fff" font-family="monospace">&lt;style&gt; (本项目放在</text>
+          <text x="52" y="230" font-size="12" fill="#ecd9fb" font-family="monospace">style.css 全局)</text>
+
+          <!-- arrow -->
+          <path d="M330 140 L400 140" stroke="#9aa7b4" stroke-width="2" marker-end="url(#arrow)"/>
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6 Z" fill="#9aa7b4"/>
+            </marker>
+          </defs>
+          <text x="365" y="132" text-anchor="middle" font-size="11" fill="#5b6b7b">vue-tsc</text>
+          <text x="365" y="156" text-anchor="middle" font-size="11" fill="#5b6b7b">+ plugin-vue</text>
+
+          <!-- output -->
+          <rect x="410" y="60" width="290" height="180" rx="12" fill="url(#g1)" stroke="#cdd7e1" stroke-width="2"/>
+          <text x="555" y="84" text-anchor="middle" font-size="13" font-weight="700" fill="#35495e">编译产物 (运行时)</text>
+          <rect x="426" y="98" width="258" height="40" rx="7" fill="#eef2f6" stroke="#cdd7e1"/>
+          <text x="440" y="123" font-size="12" fill="#35495e" font-family="monospace">render() 渲染函数</text>
+          <rect x="426" y="146" width="258" height="40" rx="7" fill="#eef2f6" stroke="#cdd7e1"/>
+          <text x="440" y="171" font-size="12" fill="#35495e" font-family="monospace">setup() 组件逻辑</text>
+          <rect x="426" y="194" width="258" height="34" rx="7" fill="#eef2f6" stroke="#cdd7e1"/>
+          <text x="440" y="216" font-size="12" fill="#35495e" font-family="monospace">虚拟 DOM → 真实 DOM</text>
+        </svg>
+      </div>
+
+      <div class="grid2" style="margin-top:16px;">
+        <div class="card">
+          <h3 style="margin-top:0;">&lt;script setup&gt;</h3>
+          <p style="font-size:14px;color:var(--text-soft);margin:0;">编译时语法糖。顶层声明的变量、import、函数会<strong>自动暴露</strong>给模板，无需 <code>return</code>。本项目用它声明 <code>count</code> 和图片 import。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">&lt;template&gt;</h3>
+          <p style="font-size:14px;color:var(--text-soft);margin:0;">声明式模板。<code>:src</code> 是属性绑定，<code>@click="count++"</code> 是事件绑定，<code>{{ count }}</code> 是文本插值。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 响应式 -->
+    <section>
+      <h2><span class="num">7</span> 响应式数据流 <span class="en">Reactivity Flow</span></h2>
+      <p class="lead">Vue 3 的核心：<code>ref</code> 把值包成响应式对象，模板读取时建立依赖，值变化时自动重渲染对应 DOM。以计数器为例：</p>
+      <div class="diagram">
+        <pre class="mermaid">
+flowchart LR
+    A["ref(0)<br/><small>创建响应式 count</small>"]:::a
+    B["模板读取 {{ count }}<br/><small>收集依赖 (track)</small>"]:::b
+    C["用户点击按钮<br/>@click=&quot;count++&quot;"]:::c
+    D["count.value 改变<br/><small>触发更新 (trigger)</small>"]:::d
+    E["重新执行 render<br/><small>diff 虚拟 DOM</small>"]:::e
+    F["仅更新变化的 DOM 节点"]:::f
+
+    A --> B
+    C --> D --> E --> F
+    B -. 建立依赖 .-> D
+
+    classDef a fill:#a855f7,color:#fff;
+    classDef b fill:#42b883,color:#fff;
+    classDef c fill:#f0a020,color:#fff;
+    classDef d fill:#e34c26,color:#fff;
+    classDef e fill:#3178c6,color:#fff;
+    classDef f fill:#35495e,color:#fff;
+        </pre>
+      </div>
+      <div class="callout">
+        <strong>关键点：</strong>在 <code>&lt;script&gt;</code> 中访问 ref 要写 <code>count.value</code>；但在 <code>&lt;template&gt;</code> 中 Vue 会自动解包，直接写 <code>count</code> 即可。
+      </div>
+    </section>
+
+    <!-- 8. 构建管线 -->
+    <section>
+      <h2><span class="num">8</span> 构建与运行管线 <span class="en">Build Pipeline</span></h2>
+      <p class="lead"><code>package.json</code> 定义了三个脚本，对应开发、构建、预览三种模式。</p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph LR
+    subgraph DEV["npm run dev · 开发态"]
+        D1["Vite Dev Server"] --> D2["原生 ESM 按需编译"] --> D3["HMR 热更新"]
+    end
+    subgraph BUILD["npm run build · 生产态"]
+        B1["vue-tsc -b<br/><small>类型检查</small>"] --> B2["vite build<br/><small>Rollup 打包</small>"] --> B3["dist/<br/><small>压缩 + hash 资源</small>"]
+    end
+    subgraph PREV["npm run preview"]
+        P1["本地静态服务器<br/>预览 dist/ 产物"]
+    end
+
+    classDef dev fill:#41d1ff,color:#063;
+    classDef build fill:#42b883,color:#fff;
+    classDef prev fill:#35495e,color:#fff;
+    class D1,D2,D3 dev;
+    class B1,B2,B3 build;
+    class P1 prev;
+        </pre>
+      </div>
+      <div class="grid2" style="margin-top:16px;">
+        <div class="card">
+          <h3 style="margin-top:0;">为什么开发态秒启动？</h3>
+          <p style="font-size:14px;color:var(--text-soft);margin:0;">Vite 不打包整个应用，而是利用浏览器原生 <code>ESM</code>，只在请求到某个模块时即时编译它。<code>@vitejs/plugin-vue</code> 负责把 <code>.vue</code> 拆解成 JS。</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">类型检查与打包分离</h3>
+          <p style="font-size:14px;color:var(--text-soft);margin:0;"><code>vue-tsc -b</code> 只做类型校验不产出代码；真正的打包交给基于 Rollup 的 <code>vite build</code>。这样类型错误能在构建时拦截。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. TS 配置 -->
+    <section>
+      <h2><span class="num">9</span> TypeScript 配置分层 <span class="en">TS Config Layout</span></h2>
+      <p class="lead">采用 <strong>Project References</strong> 把应用代码和构建脚本的编译上下文分开，互不污染类型环境。</p>
+      <div class="diagram">
+        <pre class="mermaid">
+graph TD
+    ROOT["tsconfig.json<br/><small>files:[] 仅做引用聚合</small>"]:::root
+    APP["tsconfig.app.json<br/><small>include: src/**</small><br/><small>types: vite/client</small>"]:::app
+    NODE["tsconfig.node.json<br/><small>include: vite.config.ts</small><br/><small>types: node</small>"]:::node
+
+    ROOT -->|references| APP
+    ROOT -->|references| NODE
+
+    classDef root fill:#35495e,color:#fff;
+    classDef app fill:#42b883,color:#fff;
+    classDef node fill:#3178c6,color:#fff;
+        </pre>
+      </div>
+      <div class="card">
+        <table>
+          <tr><th>文件</th><th>作用范围</th><th>关键配置</th></tr>
+          <tr><td><code>tsconfig.json</code></td><td>聚合入口</td><td><code>references</code> 指向下面两个</td></tr>
+          <tr><td><code>tsconfig.app.json</code></td><td><code>src/**</code> 应用代码</td><td>继承 <code>@vue/tsconfig/dom</code>，含 <code>vite/client</code> 类型、严格 lint</td></tr>
+          <tr><td><code>tsconfig.node.json</code></td><td><code>vite.config.ts</code></td><td>Node 环境类型，<code>moduleResolution: bundler</code></td></tr>
+          <tr><td><code>shims-vue.d.ts</code></td><td>资源模块声明</td><td>让 <code>import x from '*.svg/.png'</code> 通过类型检查</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- 10. 速查 -->
+    <section>
+      <h2><span class="num">10</span> 常用命令速查 <span class="en">Cheat Sheet</span></h2>
+      <div class="card">
+        <pre><code><span class="tok-com"># 安装依赖</span>
+npm install
+
+<span class="tok-com"># 启动开发服务器（默认 http://localhost:5173），带 HMR 热更新</span>
+npm run dev
+
+<span class="tok-com"># 类型检查 + 生产打包，产物在 dist/</span>
+npm run build
+
+<span class="tok-com"># 本地预览打包后的 dist/</span>
+npm run preview</code></pre>
+      </div>
+    </section>
+
+    <footer>
+      <p>由 Claude Code 基于 my-vue-app 源码分析生成 · 图表使用 Mermaid，配图为内联 SVG</p>
+    </footer>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        fontFamily: "system-ui, -apple-system, 'PingFang SC', sans-serif",
+        fontSize: '14px',
+        primaryColor: '#42b883',
+        lineColor: '#9aa7b4'
+      },
+      flowchart: { curve: 'basis', useMaxWidth: true },
+      sequence: { useMaxWidth: true }
+    });
+  </script>
+</body>
+</html>
