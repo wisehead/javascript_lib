@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chrome Dev Tools</title>
+        <link rel="stylesheet" href="bootstrap.css" />
+        <style>
+            .red{
+                color: red;
+            }
+        </style>
+    </head>
+    <body class="container p-5 bg-light">
+        <div id="app">
+            <div class="my-3">
+                <section id="section_one" v-show="isStep(1)">
+                    <p class="fs-2 text-center">Chrome调试工具快速入门</p>
+                    <div class="heading-line"></div>
+
+                    <div class="card">
+                        <div class="card-body fs-4">
+                            <p>
+                                只要是做Web开发的，就离不开浏览器的调试工具，作为开发常用并且好用的浏览器有Chrome,firefox。今天我们要讲的就是Chrome浏览器的DevTools.
+                                不管你是新手还是老手，我相信你都可以学到东西。
+                                这节课你将会学到：
+                            </p>
+
+                            <ul>
+                                <li>各个选项卡的使用</li>
+                                <li>命令菜单的使用</li>
+                                <li>Css debug 和 js debug</li>
+                                <li>一些小技巧</li>
+                                <li>更多...</li>
+                            </ul>
+                            <p>
+                                如果你觉得本教程对你有帮助，希望不吝三连（点赞，投币，收藏），拜谢！
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section_two" v-show="isStep(2)">
+                    <p class="fs-3 text-center">各个Tab介绍</p>
+                    <div class="heading-line"></div>
+
+                    <div class="card">
+                        <div class="card-body fs-4">
+                            <p><b>打开Dev Tool</b></p>
+                            <ul>
+                                <li>菜单>更多工具>开发者工具</li>
+                                <li>快捷键：<kbd>F12</kbd> </li>
+                            </ul>
+                            <br>
+
+                            <p><b>打开命令菜单</b></p>
+                            <ul>
+                                <li>快捷键：
+                                    <ul>
+                                        <li><kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd></li>
+                                        <li><kbd>Command</kbd> + <kbd>SHIFT</kbd> + <kbd>P</kbd>(MAC)</li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+                            <br>
+
+                            <p><b>常用的Tab</b></p>
+                            <ul>
+                                <li>Element</li>
+                                <li>Console</li>
+                                <li>Source</li>
+                                <li>Network</li>
+                                <li>Vue/React</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section id="section_three" v-show="isStep(3)">
+                    <p class="fs-3 text-center">Css 调试</p>
+                    <div class="heading-line"></div>
+                    <div class="card">
+                        <div class="card-body fs-4">
+                            <p><b>检查元素</b></p>
+                            <p>- “检查我”</p>
+                            <br>
+
+                            <p><b>查询DOM树</b></p>
+                            <p>
+                                <ul>
+                                    <li>
+                                        快捷键:
+                                        <ul>
+                                            <li><kbd>CTRL</kbd>+<kbd>F</kbd></li>
+                                            <li><kbd>Command</kbd>+<kbd>F</kbd>(MAC)</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        查询方式：
+                                        <ul>
+                                            <li>文本查询</li>
+                                            <li>css选择器</li>
+                                            <li>Xpath</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                            <br>
+
+                            <p><b>Console</b></p>
+                            <p>- inspect(element)</p>
+                            <br>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section_four" v-show="isStep(4)">
+                    <p class="fs-3 text-center">编辑样式</p>
+                    <div class="heading-line"></div>
+
+                    <div class="card">
+                        <div class="card-body fs-4">
+                            <ul>
+                                <li class="lh-lg">用auto-complete特性给元素添加样式</li>
+                                <li class="lh-lg">让:hover常驻<button class="btn btn-danger ms-6">悬停！</button></li>
+                                <li class="lh-lg">
+                                    <p>编辑class</p>
+                                    <ul>
+                                        <li class="text-primary">别动我</li>
+                                        <li class="text-primary">改我改我~</li>
+                                        <li class="text-primary">别动我</li>
+                                    </ul>
+                                </li>
+                                <li class="lh-lg">复制样式</li>
+
+                                <li class="lh-lg">DevTool的黑色主题</li>
+                                <li class="lh-lg">截屏</li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section_five" v-show="isStep(5)">
+                    <p class="fs-3 text-center">控制台（Console）</p>
+                    <div class="heading-line"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul>
+                                <li>
+                                    <p>快捷键</p>
+                                    <ul>
+                                        <li class="lh-lg"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd></li>
+                                        <li class="lh-lg"><kbd>Command</kbd>+<kbd>Option</kbd>+<kbd>J</kbd>(MAC)</li>
+                                    </ul>
+                                </li>
+                                <li class="lh-lg">执行语句</li>
+                                <li class="lh-lg">$_  上一条语句</li>
+                                <li class="lh-lg">$0 上一个选择的DOM节点（$1, $2...）</li>
+                                <li class="lh-lg">console.log (error warn table clear group time assert trace)</li>
+                                <li class="lh-lg">Log级别筛选</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section_six" v-show="isStep(6)">
+                    <p class="fs-3 text-center">Javascript 调试</p>
+                    <div class="heading-line"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <button id="change-color-btn">变颜色</button>
+
+
+                            <button id="change_color_in_vue" class="red" @click="changeColor">在Vue里变颜色</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section_seven" v-show="isStep(7)">
+                    <p class="fs-3 text-center">Network</p>
+                    <div class="heading-line"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <button class="btn btn-primary" @click="sendRequest">发送请求</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <button class="btn btn-secondary text-light" @click="previousStep" v-show="step > 1">
+                上一节
+            </button>
+            <button class="btn btn-primary" @click="nextStep" v-show="step < totalStep">下一节</button>
+        </div>
+
+        <script src="vue.js"></script>
+        <script>
+            window.addEventListener('load', () => {
+                document.getElementById("change-color-btn").addEventListener("click", function(){
+                    function rgb(){
+                        const value = () => Math.floor(Math.random() * 255);
+                        
+                        {{/* debugger; */}}
+                        const irrelevantFunction = () => {
+                            let someStr = '';
+                            for(let i = 0; i < 10; i++){
+                                someStr += i;
+                            }
+                            return someStr;
+                        }
+
+                        irrelevantFunction();
+
+                        const r = value();
+                        const g = value();
+                        const b = value();
+
+                        return {r, g, b};
+                    }
+
+                    const color = rgb();
+
+                    this.style.color = `rgb(${color.r}, ${color.g}, ${color.b})`;
+                });
+            })
+
+
+            new Vue({
+                el: "#app",
+                data() {
+                    return {
+                        step: 7,
+                        totalStep: 7,
+                    };
+                },
+                methods: {
+                    nextStep() {
+                        this.step < this.totalStep && this.step++;
+                    },
+
+                    previousStep() {
+                        this.step > 1 && this.step--;
+                    },
+
+                    isStep(step){
+                        return this.step === step;
+                    },
+
+                    changeColor(){
+                        change_color_in_vue.classList.toggle('red')
+                    },
+
+                    sendRequest(){
+                        let xhr = new XMLHttpRequest()
+
+                        xhr.open('GET', 'https://api.github.com/users?a=1', true);
+
+                        xhr.send();
+                    }
+                },
+            });
+        </script>
+    </body>
+</html>
