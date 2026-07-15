@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/wisehead/javascript_lib/issues"
   },
-  "homepage": "https://github.com/wisehead/javascript_lib#readme"
+  "homepage": "https://github.com/wisehead/javascript_lib#readme",
+  "dependencies": {
+    "lodash": "^4.18.1"
+  }
 }
