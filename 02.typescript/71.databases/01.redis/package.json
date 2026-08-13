@@ -1,0 +1,38 @@
+{
+    "name": "redis-typescript-demo",
+    "version": "1.0.0",
+    "description": "Redis 常用操作的 TypeScript 示例",
+    "scripts": {
+        "build": "tsc",
+
+        "start": "ts-node src/index.ts",
+
+        "string": "ts-node src/01.string.ts",
+
+        "hash": "ts-node src/02.hash.ts",
+
+        "list": "ts-node src/03.list.ts",
+
+        "set": "ts-node src/04.set.ts",
+
+        "zset": "ts-node src/05.zset.ts",
+
+        "key": "ts-node src/06.key-expire.ts",
+
+        "tx": "ts-node src/07.transaction-pipeline.ts",
+
+        "pubsub": "ts-node src/08.pubsub.ts",
+
+        "scan": "ts-node src/09.scan.ts",
+
+        "lock": "ts-node src/10.lua-lock.ts"
+    },
+    "dependencies": {
+        "ioredis": "^5.4.1"
+    },
+    "devDependencies": {
+        "@types/node": "^18.11.9",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.3"
+    }
+}
