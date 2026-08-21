@@ -45,12 +45,10 @@ n is odd.
 */
 
 function isMiddleElementUnique(nums: number[]): boolean {
-    const mp = new Map<number, number>();
-    for (let x of nums) {
-        mp.set(x, (mp.get(x) ?? 0) + 1);
-    } 
-    // let m = Math.floor((nums.length - 1) / 2);
-    let m = nums.length>>1;
-    if (mp.get(nums[m]) > 1) return false;
+    const mid = nums[nums.length >> 1];
+    let count = 0;
+    for (const x of nums) {
+        if (x === mid && ++count > 1) return false;
+    }
     return true;
-};
+}
