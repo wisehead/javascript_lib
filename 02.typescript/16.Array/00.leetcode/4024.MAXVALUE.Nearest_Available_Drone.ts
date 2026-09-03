@@ -59,3 +59,33 @@ target = [tx, ty]
 -25 <= xi, yi, tx, ty <= 25
 1 <= rangei <= 100
 */
+function nearestDrone(drones: number[][], target: number[]): number {
+    let min = Number.MAX_VALUE;
+    let index = -1;
+    for (let i = 0; i < drones.length; i++) {
+        let d = drones[i];
+        let l = Math.abs(d[0]-target[0]) + Math.abs(d[1]-target[1]);
+        if (l <= d[2] && l < min) {
+            min = l;
+            index = i;  
+        }
+    }
+    return index;
+};
+
+
+function nearestDrone2(drones: number[][], target: number[]): number {
+    const [tx, ty] = target;
+    let bestDist = Infinity;
+    let bestIndex = -1;
+
+    for (let i = 0; i < drones.length; i++) {
+        const [x, y, range] = drones[i];
+        const dist = Math.abs(x - tx) + Math.abs(y - ty);
+        if (dist <= range && dist < bestDist) {
+            bestDist = dist;
+            bestIndex = i;
+        }
+    }
+    return bestIndex;
+}
