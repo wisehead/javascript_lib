@@ -1,0 +1,2 @@
+1.工作目录/Users/wisehead/github/javascript_lib/03.react/01.npm_install/my-app
+2.给出代码解析，生成 md 报告。
