@@ -1,3 +1,7 @@
+// 将本文件声明为模块，避免顶层声明与其他文件（14.Number/06.binary.ts、
+// 15.String/10.binary.ts）的同名函数/变量在全局作用域冲突
+export {};
+
 // # TypeScript 数字转二进制
 // 核心方法：`num.toString(2)`
 // > 返回**二进制字符串**，不带前缀 `0b`
