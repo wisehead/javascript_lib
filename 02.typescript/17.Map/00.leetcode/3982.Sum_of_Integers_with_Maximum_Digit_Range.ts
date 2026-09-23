@@ -69,7 +69,7 @@ function maxDigitRange(nums: number[]): number {
         let delta = max - min;
         if (delta > maxrange) maxrange = delta;
         if (map1.get(num)) {
-            map2.set(num, map2.get(num)+1);
+            map2.set(num, map2.get(num)!+1);
         }
         else {
             map1.set(num, delta);
@@ -81,7 +81,7 @@ function maxDigitRange(nums: number[]): number {
     for (let [key, value] of map1) {
         // console.log(key, value); 
         if (value == maxrange) {
-            ret += key*map2.get(key);
+            ret += key*map2.get(key)!;
         }           
     }
     return ret;
