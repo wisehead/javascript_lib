@@ -60,7 +60,9 @@ class ListNode {
      }
 }
 
-function insertGreatestCommonDivisors(head: ListNode | null): ListNode | null {
+// export 使本文件成为 ES 模块，ListNode/gcd 等声明限定在模块作用域内，
+// 避免与其它文件（全局脚本）中的同名声明产生“标识符重复”冲突
+export function insertGreatestCommonDivisors(head: ListNode | null): ListNode | null {
     if (head === null) return null;
     let cur = head;
     while (cur.next !== null) {
@@ -71,7 +73,7 @@ function insertGreatestCommonDivisors(head: ListNode | null): ListNode | null {
     return head;
 }
 
-function gcd(a: number, b: number): number {
+export function gcd(a: number, b: number): number {
     while (b !== 0) [a, b] = [b, a % b];
     return a;
 }
