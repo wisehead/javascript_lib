@@ -71,3 +71,5 @@ function sortBy<T>(arr: T[], key: SortKey<T>, asc = true): T[] {
 // 1. 不要直接 sort 数字，必须传比较函数
 // 2. 中文排序不要直接减，要用 localeCompare
 // 3. 排序引用类型时，sort 会改动原数组，不想改优先 toSorted
+
+export {};
